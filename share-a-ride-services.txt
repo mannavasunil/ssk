@@ -1,0 +1,114 @@
+#0
+New service to find out opted ride information of a rider.
+ 
+http://10.161.233.73:8080/share-a-ride/getMyRides?opterMobileNumber=123456789
+ 
+RequestMethod:GET
+Response JSON:
+{
+    "data": [
+        {
+            "rideId": 10,
+            "riderName": "kiran",
+            "startTime": "11",
+            "offeredSeats": 11,
+            "vehicleNumber": "3889",
+            "meetingPoint": "Q city",
+            "mobileNumber": 434242442,
+            "pickupLocation": "Q city",
+            "dropLocation": "Gachibowli",
+            "viaRoute": "r6",
+            "isActive": 1
+        }
+    ],
+    "error": ""
+}
+==============================
+#1 To save offered ride
+http://10.161.233.73:8080/share-a-ride/offerRide
+Content-Type:application/json
+RequestMethod:POST
+Request Input JSON:
+ 
+{
+  "riderName":"Sunil",
+  "startTime": "09:00",
+  "offeredSeats": "3",
+  "vehicleNumber": "AP 07 BV 5466",
+  "meetingPoint": "Mythrivanam",
+  "mobileNumber": "9491662997",
+  "pickupLocation": "Ameerpet",
+  "dropLocation": "KPHB",
+  "viaRoute": "SR Nagar, Jubilee Hills, Kondapur, Hitech City"
+}
+ 
+ 
+Response: true
+=================================
+#2 search available rides to opt a ride
+http://10.161.233.73:8080/share-a-ride/searchRide?pickupLocation=SR Nagar&dropLocation=Hitech
+ 
+RequestMethod:GET
+Response JSON:
+[
+    {
+        "rideId": 6,
+        "riderName": "Sunil",
+        "startTime": "09:00",
+        "offeredSeats": 3,
+        "vehicleNumber": "AP 07 BV 5466",
+        "meetingPoint": "Mythrivanam",
+        "mobileNumber": 9491662997,
+        "pickupLocation": "Ameerpet",
+        "dropLocation": "KPHB",
+        "viaRoute": "SR Nagar, Jubilee Hills, Kondapur, Hitech City",
+        "isActive": 1
+    }
+]
+==================================
+#3 save opted ride
+http://10.161.233.73:8080/share-a-ride/saveOptedRide
+Content-Type:application/json
+RequestMethod:POST
+Request Input JSON:
+{
+                  "opterName":"Chowdary",
+                  "optedRideId":1,
+                  "optedStartTime":"10:00",
+                  "optedMeetingPoint":"Mythrivanam",
+                  "opterMobileNumber":7794956633,
+                  "optedPickUpLocation":"SR Nagar",
+                  "optedDropLocation":"Hitech City",
+                  "preferredViaRroute":"Jubilee Hills"
+                }
+               
+Response: true
+=========================================
+
+#4 opted customers list for a rider
+http://10.161.233.73:8080/share-a-ride/getOptedRides?riderMobileNumber=9491662997
+RequestMethod:GET
+Response JSON:
+[
+    {
+        "opterName": "Chowdary",
+        "optedRideId": 6,
+        "optedStartTime": "10:00",
+        "optedMeetingPoint": "Mythrivanam",
+        "opterMobileNumber": 7794956633,
+       "optedPickUpLocation": "SR Nagar",
+        "optedDropLocation": "Hitech City",
+        "preferredViaRroute": "Jubilee Hills"
+    },
+    {
+        "opterName": "Mannava",
+        "optedRideId": 6,
+        "optedStartTime": "10:00",
+        "optedMeetingPoint": "Mythrivanam",
+        "opterMobileNumber": 7794956633,
+        "optedPickUpLocation": "SR Nagar",
+        "optedDropLocation": "Hitech City",
+        "preferredViaRroute": "Jubilee Hills"
+    }
+]
+ 
